@@ -1,0 +1,42 @@
+## Start postgresql server
+1. Pull the latest image of PostgreSQL.
+docker pull postgres
+2. Create container "postgresql-for-training" from the PostgreSQL image.
+docker run --name postgresql-for-training -e POSTGRES_PASSWORD=P@ssw0rd -p 5432:5432 -d postgres
+
+## Create PostgreSQL database client admin (pgadmin).
+1. Pull the latest image.
+docker pull dpage/pgadmin4
+2. Run the pgAdmin 4 docker container.
+docker run --name pgadmin-for-training -p 5050:80 -e PGADMIN_DEFAULT_EMAIL=the.nuyie@gmail.com -e PGADMIN_DEFAULT_PASSWORD=P@ssword -d dpage/pgadmin4
+
+## Start browsing PgAdmin 4 web page.
+1. http://localhost:5050/
+2. Add postgresql server
+Find container ip by using command
+docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' postgresql-for-training
+
+-----------------------------------------------
+
+1. For docker-compose command
+cd D:\code_workspaces\workspace_training\springboot-cs-case-study-02\Docker\Postgres\
+docker compose -f .\docker-compose.yaml build   # use when we have build block
+docker compose -f .\docker-compose.yaml up -d
+docker compose -f .\Docker-compose.yaml down
+
+docker exec -it training-postgres-1 bash
+docker exec -it training-pgadmin-1 bash
+
+2. Login pgadmin and connect postgres database
+http://localhost:5050/browser/
+user/pass : the.nuyie@gmail.com / postgres
+---
+host : postgres port 5432
+user/pass : postgres/postgres
+database : postgres
+
+3. Test read data from database
+mvn clean package -DskipTests
+java -jar .\target\springboot-cs-case-study-02-0.0.1-SNAPSHOT.jar
+Enter url :
+    http://localhost:8080/case-study/controller/rest-simple/list-students

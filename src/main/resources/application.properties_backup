@@ -1,0 +1,27 @@
+# ===============================
+# = JSP
+# ===============================
+spring.mvc.view.prefix=/WEB-INF/jsp/
+spring.mvc.view.suffix=.jsp
+
+
+# ===============================
+# = DATA SOURCE
+# ===============================
+############### HIST DB ################
+# spring.datasource.hist.url=jdbc:oracle:thin:@//rms-mms-oracle-uat.cbuy6b9a52qw.ap-southeast-1.rds.amazonaws.com:1521/MMUAT
+spring.datasource.hist.url=jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=10.60.8.108)(PORT=1521))(ADDRESS=(PROTOCOL=TCP)(HOST=10.60.8.110)(PORT=1521))(LOAD_BALANCE=yes))(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=histprd)(FAILOVER_MODE=(TYPE=select)(METHOD=basic)(RETRIES=2)(DELAY=1))))
+spring.datasource.hist.username=CS_DEV
+spring.datasource.hist.password=1234
+spring.datasource.hist.driverClassName=oracle.jdbc.OracleDriver
+# spring.datasource.hist.driver-class-name=oracle.jdbc.OracleDriver
+spring.datasource.hist.hikari.connection-timeout=60000
+spring.datasource.hist.hikari.maximum-pool-size=5
+############### PAYGW DB ################
+spring.datasource.paygw.url=jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=10.60.8.108)(PORT=1521))(ADDRESS=(PROTOCOL=TCP)(HOST=10.60.8.110)(PORT=1521))(LOAD_BALANCE=yes))(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=PAYGWPRD)(FAILOVER_MODE=(TYPE=select)(METHOD=basic)(RETRIES=2)(DELAY=1))))
+spring.datasource.paygw.username=PAYGW
+spring.datasource.paygw.password=isylzjko2014
+spring.datasource.paygw.driverClassName=oracle.jdbc.OracleDriver
+# spring.datasource.paygw.driver-class-name=oracle.jdbc.OracleDriver
+spring.datasource.paygw.hikari.connection-timeout=60000
+spring.datasource.paygw.hikari.maximum-pool-size=5

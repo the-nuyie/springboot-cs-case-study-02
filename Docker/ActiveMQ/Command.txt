@@ -1,0 +1,7 @@
+cd D:\code_workspaces\workspace_training\springboot-cs-case-study-02\Docker\ActiveMQ\
+docker compose -f .\docker-compose.yaml build   # use when we have build block
+docker compose -f .\docker-compose.yaml up -d
+docker compose -f .\Docker-compose.yaml down
+
+
+docker run --name='activemq' -it --rm -e 'ACTIVEMQ_CONFIG_MINMEMORY=512' -e 'ACTIVEMQ_CONFIG_MAXMEMORY=2048' -P webcenter/activemq:latest
