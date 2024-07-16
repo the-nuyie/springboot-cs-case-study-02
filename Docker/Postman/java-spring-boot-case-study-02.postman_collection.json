@@ -44,7 +44,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"firstname\": \"Tomas\",\r\n    \"lastname\": \"Rosicky No Spring\",\r\n    \"room\": \"1/1\"\r\n}",
+					"raw": "{\r\n    \"firstname\": \"Thomas\",\r\n    \"lastname\": \"Partey\",\r\n    \"room\": \"1/1\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -63,6 +63,37 @@
 						"controller",
 						"rest-simple",
 						"add-student-no-spring"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "REST Add new student NO SPRING not pass connection",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstname\": \"Declan\",\r\n    \"lastname\": \"Rice\",\r\n    \"room\": \"1/1\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/case-study/controller/rest-simple/add-student-no-spring-not-pass-connection",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"case-study",
+						"controller",
+						"rest-simple",
+						"add-student-no-spring-not-pass-connection"
 					]
 				}
 			},
@@ -213,6 +244,90 @@
 						"controller",
 						"quartz",
 						"list-jobs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "IBMMQ Send Plain Text",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "Hello world",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/case-study/controller/ibmmq/send-plain",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"case-study",
+						"controller",
+						"ibmmq",
+						"send-plain"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "IBMMQ Receive Plain Text",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/case-study/controller/ibmmq/receive-plain",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"case-study",
+						"controller",
+						"ibmmq",
+						"receive-plain"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "IBMMQ Send Object",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstname\": \"Tony\",\r\n    \"lastname\": \"Adams\",\r\n    \"room\": \"1/1\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/case-study/controller/ibmmq/send-object",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"case-study",
+						"controller",
+						"ibmmq",
+						"send-object"
 					]
 				}
 			},
