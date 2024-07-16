@@ -161,6 +161,34 @@ public class RestSimpleController {
         return hashMapReturn;
     }
 
+    @PostMapping("/add-student-no-spring-not-pass-connection")
+    public Map<String, Object> addStudentNoSpringNotPassConnection(@RequestBody Student student) {
+
+        logger.debug("Data : "+student);
+        // String jobName = data.get("jobName");
+        Map<String, Object> hashMapReturn = new HashMap<String, Object>();
+        hashMapReturn.put("CODE", "0000");
+        hashMapReturn.put("TECH_MESSAGE", null);
+        hashMapReturn.put("MESSAGE", "SUCCESS");
+
+
+        logger.debug("Start Call BusinessLogic()");
+        try{
+            logger.debug("Add new student");
+            studentService.addNewStudentNoSpringNotPassConnection(student);
+            logger.debug("Add new student successfully.");
+            hashMapReturn.put("RESULT", "DONE");
+        }catch(Exception ex){
+            ex.printStackTrace();
+            hashMapReturn.put("CODE", "9999");
+            hashMapReturn.put("TECH_MESSAGE", ex.getMessage());
+            hashMapReturn.put("MESSAGE", "FAILED");
+        }
+        logger.debug("End Call BusinessLogic()");
+
+        return hashMapReturn;
+    }
+
     @PostMapping("/write-log4j-program")
     public Map<String, Object> writeLogj4Program() {
 
