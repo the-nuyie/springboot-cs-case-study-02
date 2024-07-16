@@ -4,11 +4,14 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
+import org.springframework.jms.annotation.EnableJms;
 
 import java.util.TimeZone;
 
+
 @SpringBootApplication
 		//(scanBasePackages = {"com.cs.backend", "com.training.java.springboot"})
+@EnableJms
 public class SpringbootApplication extends SpringBootServletInitializer {
 	// If we want to use servlet, must extends SpringBootServletInitializer
 	// and override method configure

@@ -107,12 +107,16 @@
 			<version>1.2.17</version>
 		</dependency>
 
-		<!-- For JMS and Active MQ -->
+
+
+
+		<!-- For JMS and Active MQ
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-activemq</artifactId>
 			<version>3.2.2</version>
 		</dependency>
+		-->
 		<!--
 		<dependency>
 			<groupId>org.apache.activemq</groupId>
@@ -121,6 +125,32 @@
 		-->
 
 
+
+		<!-- For IBM MQ -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.ibm.mq/mq-jms-spring-boot-starter -->
+		<dependency>
+			<groupId>com.ibm.mq</groupId>
+			<artifactId>mq-jms-spring-boot-starter</artifactId>
+			<version>3.1.1</version>
+			<!-- <version>3.0.6</version> -->
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.springframework/spring-jms -->
+		<!--
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jms</artifactId>
+			<version>6.1.10</version>
+		</dependency>
+		<dependency>
+			<groupId>jakarta.platform</groupId>
+			<artifactId>jakarta.jakartaee-api</artifactId>
+			<version>10.0.0</version>
+		</dependency>
+		-->
 
 
 
@@ -131,7 +161,8 @@
 		</dependency>
 
 
-	</dependencies>
+
+    </dependencies>
 
 	<build>
 		<plugins>
@@ -176,6 +207,51 @@
 						</configuration>
 					</execution>
 					-->
+
+					<!-- Due to exception the trustAnchors parameter must be non-empty, I have to download jar and add it manually -->
+					<!-- Jar from IBM MQ folder -->
+					<execution>
+						<id>IBMMQ-JMS</id>
+						<phase>initialize</phase>
+						<goals>
+							<goal>install-file</goal>
+						</goals>
+						<configuration>
+							<file>./Docker/IBM-MQ/jar/mq-jms-spring-boot-starter-3.0.6.jar</file>
+							<groupId>com.ibm.mq</groupId>
+							<artifactId>mq-jms-spring-boot-starter</artifactId>
+							<version>3.0.6</version>
+							<packaging>jar</packaging>
+						</configuration>
+					</execution>
+					<execution>
+						<id>Spring-JMS</id>
+						<phase>initialize</phase>
+						<goals>
+							<goal>install-file</goal>
+						</goals>
+						<configuration>
+							<file>./Docker/IBM-MQ/jar/spring-jms-6.1.10.jar</file>
+							<groupId>org.springframework</groupId>
+							<artifactId>spring-jms</artifactId>
+							<version>6.1.10</version>
+							<packaging>jar</packaging>
+						</configuration>
+					</execution>
+					<execution>
+						<id>Jakarta-EE-API</id>
+						<phase>initialize</phase>
+						<goals>
+							<goal>install-file</goal>
+						</goals>
+						<configuration>
+							<file>./Docker/IBM-MQ/jar/jakarta.jakartaee-api-10.0.0.jar</file>
+							<groupId>jakarta.platform</groupId>
+							<artifactId>jakarta.jakartaee-api</artifactId>
+							<version>10.0.0</version>
+							<packaging>jar</packaging>
+						</configuration>
+					</execution>
 				</executions>
 
 

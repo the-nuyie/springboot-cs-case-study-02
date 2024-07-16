@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import java.time.LocalDateTime;
 import java.util.Date;
 
-public class Student {
+public class Student implements  java.io.Serializable {
 
     private Integer id;
     private String firstname;

@@ -1,0 +1,25 @@
+version: '3.5'
+
+name: training
+
+services:
+  ibmmq:
+    image: ibmcom/mq:latest
+    ports:
+      - "1414:1414"
+      - "9443:9443"
+    environment:
+      - LICENSE=accept
+      - MQ_QMGR_NAME=QM1
+    stdin_open: true
+    tty: true
+    restart: always
+
+volumes:
+  ibmmq-data:
+    driver: local
+
+
+#networks:
+#  backing-services:
+#    driver: bridge

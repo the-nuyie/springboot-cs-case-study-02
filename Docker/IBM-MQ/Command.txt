@@ -1,0 +1,11 @@
+1. docker compose command
+	cd D:\code_workspaces\workspace_training\springboot-cs-case-study-02\Docker\IBM-MQ\
+	docker compose -f .\docker-compose.yaml up -d
+	docker compose -f .\Docker-compose.yaml down
+---
+	docker exec -it training-ibmmq-1 bash
+---
+Admin Console
+	https://localhost:9443/ibmmq/console/login.html
+	Username: admin Password: passw0rd
+	(เป็น default ที่มากับ docker)
