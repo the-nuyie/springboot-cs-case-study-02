@@ -25,4 +25,17 @@ public class IbmMqMessageListener {
             logger.debug("  Received message !! Object Message = "+stu);
         }
     }
+
+
+    @JmsListener(destination = "${ibm.mq.in.q2}")
+    public void onMessageReceived2(final Message message) throws JMSException {
+        if (message instanceof TextMessage) {
+            String text = ((TextMessage) message).getText();
+            logger.debug("  Received message 2 !! Text Message = "+text);
+        }else if(message instanceof Student) {
+            Student stu = (Student) message;
+            logger.debug("  Received message 2 !! Object Message = "+stu);
+        }
+    }
+
 }

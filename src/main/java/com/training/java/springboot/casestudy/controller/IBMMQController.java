@@ -5,6 +5,7 @@ import com.training.java.springboot.casestudy.bean.Student;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,6 +22,9 @@ public class IBMMQController {
     @Autowired
     private JmsTemplate jmsTemplate;
 
+    @Value("${ibm.mq.in.q1}")
+    private String queueNameInput;
+
     @PostMapping("/send-plain")
     public Map<String, Object> sendPlain(@RequestBody String plainMessage) {
 
@@ -35,7 +39,8 @@ public class IBMMQController {
         logger.debug("Start sendPlain");
         try{
 
-            jmsTemplate.convertAndSend("DEV.QUEUE.1", plainMessage);
+            // jmsTemplate.convertAndSend("DEV.QUEUE.1", plainMessage);
+            jmsTemplate.convertAndSend(queueNameInput, plainMessage);
 
             logger.debug("  Message sent.");
             hashMapReturn.put("RESULT", "DONE");
