@@ -9,3 +9,77 @@ Admin Console
 	https://localhost:9443/ibmmq/console/login.html
 	Username: admin Password: passw0rd
 	(เป็น default ที่มากับ docker)
+
+
+----------------------------------------------------------------------------------------
+
+ขั้นตอนการเพิ่มที่ Code
+1. เพิ่ม dependency ที่ pom.xml
+		<!-- For IBM MQ -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.ibm.mq/mq-jms-spring-boot-starter -->
+		<dependency>
+			<groupId>com.ibm.mq</groupId>
+			<artifactId>mq-jms-spring-boot-starter</artifactId>
+			<version>3.1.1</version>
+			<!-- <version>3.0.6</version> -->
+		</dependency>
+
+** หากพบ error maven ตอนคลิกขวา pom.xml > Reload Project
+Unexpected error: java.security.InvalidAlgorithmParameterException: the trustAnchors parameter must be non-empty
+อารมณ์เหมือน Java ที่ใช้ ณ ปัจจุบัน จะมี cacerts แล้วมันไม่ trust cert  site ปลายทาง ที่ไป download jar มั้ง
+ไม่แน่ใจ
+ให้ลองไปใช้ cmd แทน (แล้วใช้ Java Home ที่ใหม่กว่าบน maven บน IntelliJ) ในการ download jar
+ด้วย command
+
+mvn dependency:get -DremoteRepositories=http://repo1.maven.org/maven2/ -DgroupId=com.ibm.mq -DartifactId=mq-jms-spring-boot-starter -Dversion=3.3.1 -Dtransitive=false
+
+มันจะไปทำการ download jar + dependency จาก http://repo1.maven.org/maven2/ มาให้ (เหมือนกด Reload Project)
+
+ตอนแรกลองใช้วิธี download jar มาวางไว้ drive C แล้ว maven install แล้วอ้างไปที่ path jar 
+ปรากฎว่า มันขาด dependency jar ไปหลายตัว เช่น jakarta.platform หรืออื่น ๆ
+เลยใช้วิธี mvn dependency:get   ดีกว่า เพราะดึงมาทั้งยวง
+
+2. ที่ class SpringbootApplication  ให้เพิ่ม    @EnableJms  เข้าไป
+
+3. ที่ application.properties ให้เพิ่ม configuration สำหรับเชื่อมต่อ IBM MQ
+# ===============================
+# = IBM MQ Config
+# ===============================
+ibm.mq.queueManager=QM1
+ibm.mq.channel=DEV.ADMIN.SVRCONN
+ibm.mq.connName=localhost(1414)
+ibm.mq.user=admin
+ibm.mq.password=passw0rd
+โดย หากเรา add pom mq-jms-spring-boot-starter ของ com.ibm.mq ลงไป
+มันจะทำการ binding properties เหล่านี้ให้กับ 
+annotation  	@JmsListener(destination = "${ibm.mq.in.q1}")
+และ    			@Autowired private JmsTemplate jmsTemplate;
+ให้อัตโนมัติ
+
+4. สร้าง controller IBMMQController.java
+และมี 
+    @Autowired
+    private JmsTemplate jmsTemplate;
+ในการ put, receive message 
+
+5. สร้าง class สำหรับ Listen message จาก Queue คล้าย MDB
+class IbmMqMessageListener
+โดยกำหนด annotation บนหัว method ว่าจะ listen queue ไหน
+    @JmsListener(destination = "${ibm.mq.in.q1}")
+    public void onMessageReceived(final Message message) throws JMSException {    
+
+หรือ
+
+    @JmsListener(destination = "${ibm.mq.in.q2}")
+    public void onMessageReceived2(final Message message) throws JMSException {
+
+6. ทดสอบ call     IBMMQController  ด้วย postman
+
+----------------------------------------------------------------------------------------
+
+
+
