@@ -2,6 +2,11 @@ version: '3.5'
 
 name: training
 
+networks:
+  counter_service_network:
+    name: counter_service_network
+    driver: bridge
+
 services:
 
   activemq:
@@ -36,7 +41,9 @@ services:
       ACTIVEMQ_ENABLED_SCHEDULER: "true"
       ACTIVEMQ_MIN_MEMORY: 512
       ACTIVEMQ_MAX_MEMORY: 2048
-
+      TZ: Asia/Bangkok
+    networks:
+      - counter_service_network
 volumes:
   activemq-data:
     driver: local
